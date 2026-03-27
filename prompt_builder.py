@@ -4,7 +4,10 @@ Monta o prompt completo enviado ao gpt-4o-mini para gerar o briefing.
 
 import json
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from typing import Optional
+
+TZ = ZoneInfo("America/Sao_Paulo")
 
 WEEKDAY_PT = [
     "Segunda-feira", "Terça-feira", "Quarta-feira",
@@ -38,7 +41,7 @@ def build(
     """
     Returns (system_prompt, user_prompt) for the OpenAI chat call.
     """
-    now = datetime.now()
+    now = datetime.now(TZ)
     weekday = WEEKDAY_PT[now.weekday()]
     date_str = f"{weekday}, {now.day} de {MONTH_PT[now.month]} de {now.year}"
 

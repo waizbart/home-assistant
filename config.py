@@ -17,7 +17,7 @@ WEATHER_LON = float(get("WEATHER_LON", "-47.4526"))
 WEATHER_UNITS = get("WEATHER_UNITS", "metric")
 WEATHER_LANG = get("WEATHER_LANG", "pt_br")
 
-TTS_VOICE = get("TTS_VOICE", "nova")
+TTS_VOICE = get("TTS_VOICE", "random")
 LLM_MODEL = get("LLM_MODEL", "gpt-4o-mini")
 
 FALLBACK_AUDIO_PATH = get("FALLBACK_AUDIO_PATH", "fallback/fallback.mp3")
