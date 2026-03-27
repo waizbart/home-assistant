@@ -1,0 +1,27 @@
+# Environment
+.env
+*.env
+
+# Google OAuth tokens (sensitive — never commit)
+token.json
+credentials.json
+
+# Generated audio
+*.mp3
+!fallback/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
