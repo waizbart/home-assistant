@@ -21,7 +21,7 @@ import llm
 import player
 import prompt_builder
 import tts
-from collectors import calendar_events, market, news, weather
+from collectors import market, news, weather
 
 logging.basicConfig(
     level=logging.INFO,
@@ -38,9 +38,6 @@ def run():
     logger.info("Collecting weather data...")
     weather_data = weather.collect()
 
-    logger.info("Collecting calendar events...")
-    events_data = calendar_events.collect()
-
     logger.info("Collecting market data...")
     market_data = market.collect()
 
@@ -51,7 +48,7 @@ def run():
     logger.info("Building prompt...")
     system_prompt, user_prompt = prompt_builder.build(
         weather=weather_data,
-        events=events_data,
+        events=None,
         market=market_data,
         news=news_data,
     )

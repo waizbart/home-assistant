@@ -22,6 +22,3 @@ LLM_MODEL = get("LLM_MODEL", "gpt-4o-mini")
 
 FALLBACK_AUDIO_PATH = get("FALLBACK_AUDIO_PATH", "fallback/fallback.mp3")
 OUTPUT_AUDIO_PATH = get("OUTPUT_AUDIO_PATH", "/tmp/alarm_briefing.mp3")
-
-GOOGLE_CREDENTIALS_PATH = get("GOOGLE_CREDENTIALS_PATH", "credentials.json")
-GOOGLE_TOKEN_PATH = get("GOOGLE_TOKEN_PATH", "token.json")
