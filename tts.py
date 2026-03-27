@@ -4,11 +4,14 @@ Converte o texto do briefing em áudio MP3 via OpenAI TTS.
 
 import logging
 import os
+import random
 from typing import Optional
 
 from openai import OpenAI
 
 import config
+
+VOICES = ["alloy", "ash", "coral", "echo", "fable", "nova", "onyx", "sage", "shimmer"]
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +24,9 @@ def synthesize(text: str, output_path: str) -> bool:
     try:
         client = OpenAI(api_key=config.OPENAI_API_KEY)
 
+        voice = config.TTS_VOICE if config.TTS_VOICE != "random" else random.choice(VOICES)
+        logger.info("Using TTS voice: %s", voice)
+
         # Ensure output directory exists
         output_dir = os.path.dirname(output_path)
         if output_dir:
@@ -28,7 +34,7 @@ def synthesize(text: str, output_path: str) -> bool:
 
         with client.audio.speech.with_streaming_response.create(
             model="tts-1-hd",
-            voice=config.TTS_VOICE,
+            voice=voice,
             input=text,
             response_format="mp3",
         ) as response:
