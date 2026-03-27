@@ -20,7 +20,7 @@ def play(audio_path: str) -> bool:
 
     try:
         result = subprocess.run(
-            ["mpg123", "-q", audio_path],
+            ["mpg123", "-q", "-o", "alsa", audio_path],
             check=True,
             timeout=300,  # 5 min max
         )
