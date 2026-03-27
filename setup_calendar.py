@@ -21,6 +21,10 @@ import sys
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
 
 
+def _has_display() -> bool:
+    return bool(os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY"))
+
+
 def main():
     try:
         from google_auth_oauthlib.flow import InstalledAppFlow
@@ -50,9 +54,15 @@ def main():
             print("Refreshing existing token...")
             creds.refresh(Request())
         else:
-            print("Opening browser for Google OAuth2 authorization...")
             flow = InstalledAppFlow.from_client_secrets_file(credentials_path, SCOPES)
-            creds = flow.run_local_server(port=0)
+            # Headless/Docker mode: print URL and paste code manually
+            if os.environ.get("NO_BROWSER") or not _has_display():
+                print("\nHeadless mode — no browser available.")
+                print("Open this URL in any browser, authorize, and paste the code below:\n")
+                creds = flow.run_console()
+            else:
+                print("Opening browser for Google OAuth2 authorization...")
+                creds = flow.run_local_server(port=0)
 
         with open(token_path, "w") as f:
             f.write(creds.to_json())

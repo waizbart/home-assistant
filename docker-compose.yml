@@ -1,0 +1,14 @@
+services:
+  alarm:
+    build: .
+    env_file: .env
+    devices:
+      - /dev/snd:/dev/snd   # Audio device passthrough
+    volumes:
+      - ./credentials.json:/app/credentials.json:ro
+      - ./token.json:/app/token.json
+      - ./fallback:/app/fallback
+      - /tmp:/tmp            # OUTPUT_AUDIO_PATH default is /tmp
+    group_add:
+      - audio                # Access to audio group inside container
+    restart: "no"
